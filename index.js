@@ -14,6 +14,13 @@ app.use("/transactions", transactionRoutes);
 
 app.use(errorHandler);
 
-sequelize.sync().then(() => {
-  app.listen(3000, () => console.log("Server running on http://localhost:3000"));
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Successfully Connect to Dev Database");
+  })
+  .catch((err) => {
+    console.error("Failed to connect to the database:", err);
+  });
+
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
